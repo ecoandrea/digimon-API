@@ -1,9 +1,13 @@
+import { Digimon } from "../model/Digimon.js";
+import { createDigimon } from "../utils/createDigimon.js";
+
+const BASE_URL = "https://digi-api.com/api/v1";
 
 export const fetchAllDigimon = async() => {
     try {
-        const response = await fetch('https://digi-api.com/api/v1/digimon') //promesa
+        const response = await fetch(`${BASE_URL}/digimon`)
         if(!response.ok) throw new Error('Error al traer a los Digimon')
-        const data = await response.json() //promesa que se convierte a json para que retorne datos
+        const data = await response.json()
     
         return(data)
         
@@ -12,4 +16,28 @@ export const fetchAllDigimon = async() => {
     }
 }
 
-fetchAllDigimon()
+
+export const fetchOneDigimon = async(digimon) => {
+    try {
+        const response = await fetch(`${BASE_URL}/digimon/${digimon}`);
+        if(!response.ok) throw new Error(`Error al encontrar el digimon ${digimon}`)
+        const data = await response.json()
+
+        return data
+    
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+
+
+//función autoejecutable 
+/*
+(
+    async() => {
+        const digimon = await fetchAllDigimon()
+        console.log(digimon)
+    }
+) ()
+*/
